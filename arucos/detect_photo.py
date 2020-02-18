@@ -35,8 +35,8 @@ corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, aruco_dict, paramete
 frame_markers = aruco.drawDetectedMarkers(frame.copy(), corners, ids)
 
 plt.figure()
-plt.imshow(frame_markers)
-if ids.any():
+plt.imshow(cv2.cvtColor(frame_markers, cv2.COLOR_BGR2RGB))
+if hasattr(ids,'any'):
     for i in range(len(ids)):
         c = corners[i][0]
         plt.plot([c[:, 0].mean()], [c[:, 1].mean()], "o", label = "id={0}".format(ids[i]))
