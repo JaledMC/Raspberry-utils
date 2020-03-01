@@ -13,7 +13,8 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    '-images_path',
+    '-i',
+    '--images_path',
     type=str,
     help='path to folder with images to be detected')
 parser.add_argument(
@@ -26,24 +27,24 @@ parser.add_argument(
 def main():
     args = parser.parse_args()
     os.chdir(args.images_path)
-    os.mkdir("selected")
+    out_folder = "selected"
+    if not os.path.exists(out_folder):
+        os.mkdir(out_folder)
 
     images = glob.glob('*.jpg') + glob.glob('*.jpeg') + glob.glob('*.png')
     images = natsorted(images)
 
-    cnt = 0
-    for image_name in images:
+    for idx, image_name in enumerate(images):
         image = cv2.imread(image_name)
         resized_image = cv2.resize(image, (image.shape[1]//args.scale, image.shape[0]//args.scale))
 
         cv2.imshow('image', resized_image)
         k = cv2.waitKey(0)
-        cnt += 1
         if k == 27:  # wait for ESC to stop the program
             cv2.destroyAllWindows()
             break
         elif k == ord('s'):  # wait for 's' key to save and exit
-            cv2.imwrite('selected/{}.png'.format(cnt), image)
+            cv2.imwrite('selected/{}.png'.format(idx), image)
             cv2.destroyAllWindows()
 
 
