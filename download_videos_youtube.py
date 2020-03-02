@@ -1,8 +1,12 @@
+'''
+Script to download videos from youtube given a
+text file containing youtube links (one link per line).
+'''
+
 from __future__ import unicode_literals
 import argparse
 import  copy
 import youtube_dl
-
 
 
 def parser():
