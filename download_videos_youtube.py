@@ -25,13 +25,13 @@ def main():
     args = parser()
     ydl_opts = {}
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        file1 = open(args.links_file, 'r')
-        videos = file1.readlines()
-        videos_copy = copy.deepcopy(videos)
-        for video in videos:
-            ydl.download([video])
-            videos_copy.remove(video)
-            print(videos_copy)
+        with open(args.links_file, 'r') as file1:
+            videos = file1.readlines()
+            videos_copy = copy.deepcopy(videos)
+            for video in videos:
+                ydl.download([video])
+                videos_copy.remove(video)
+                print(videos_copy)
 
 
 if __name__ == "__main__":
