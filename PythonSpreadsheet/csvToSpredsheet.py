@@ -6,6 +6,8 @@ import pandas as pd
 Script para subir con Python valores a una hoja de Google Spreadsheets
 Necesario: Google developer console Google Drive API y Google Sheets API
 Obtener JSON para tener credenciales y poder modificar el spreadsheet
+Más info en:
+    https://www.youtube.com/watch?v=7I2s81TsCnc
 """
 
 SCOPE = ['https://spreadsheets.google.com/feeds',
