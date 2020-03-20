@@ -31,7 +31,7 @@ def main():
     parser.add_argument(
         "--extension",
         default="png",
-        choices=['png','jpg','bmp'],
+        choices=['png', 'jpg', 'bmp'],
         help="file extension of the images: png, jpg...",
     )
     parser.add_argument(
