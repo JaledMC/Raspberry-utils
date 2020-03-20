@@ -1,8 +1,29 @@
 import xml.etree.ElementTree as ET
+import argparse
 import json
 
 
+def parse_options():
+    parser = argparse.ArgumentParser()
+    parser.add_option(
+        "-f", "--file",
+        help="xml annotation file",
+        )
+    parser.add_option(
+        "-o", "--output_file",
+        help="converted via json file",
+    )
+    return parser.parse_args()
+
+
 class Annotation:
+    """
+    class to convert cvat xml annotations to via json annotations
+    args:
+        xml cvat file, with annotations made with "polyline" and "polygon"
+    return:
+        save a json file in via format
+    """
     def __init__(self, image_id, name, width, height, regions):
         self.image_id = image_id
         self.name = name
@@ -13,9 +34,6 @@ class Annotation:
 
     @classmethod
     def from_xml(cls, image):
-        """
-        From cvat xml
-        """
         image_id = image.get('id')
         name = image.get('name')
         width = int(image.get('width'))
@@ -24,6 +42,9 @@ class Annotation:
         return cls(image_id, name, width, height, regions)
 
     def get_regions(image):
+        """
+        Parse cvat polylines and polygons to via regions
+        """
         regions = []
         for region in image.findall('polyline')+image.findall('polygon'):
             clase = region.get('label')
@@ -32,6 +53,9 @@ class Annotation:
         return regions
 
     def via_region(clase, points):
+        """
+        Returns a dict with the region in via format
+        """
         all_points_x, all_points_y = Annotation.points_format(points)
         return {
             "region_attributes": {
@@ -45,6 +69,9 @@ class Annotation:
         }
 
     def points_format(points):
+        """
+        Change cvat format [x1,y1,x2,y2...] to [x1,x2,x3...][y1,y2,y3...]
+        """
         all_points_x = []
         all_points_y = []
         for point in points.split(";"):
@@ -54,6 +81,9 @@ class Annotation:
         return all_points_x, all_points_y
 
     def get_dict(self):
+        """
+        Returns a dict with the complete image in via format
+        """
         return {
             "filename": self.name,
             "dimension": [self.width, self.height],
@@ -63,12 +93,16 @@ class Annotation:
         }
 
 
-if __name__ == "__main__":
-    path = "/home/gangstar0v0t/Downloads/BSH_dataset/final.xml"
-    root = ET.parse(path).getroot()
+def main():
+    args = parse_options()
+    root = ET.parse(args.file).getroot()
     dataset = {}
     for image in root.findall('image'):
         annotation = Annotation.from_xml(image)
-        dataset[annotation.name+str(annotation.size)] = annotation.get_dict()
-    with open("via.json", 'w') as out_file:
+        dataset[annotation.name] = annotation.get_dict()
+    with open(args.output_file, 'w') as out_file:
         json.dump(dataset, out_file)
+
+
+if __name__ == "__main__":
+    main()
