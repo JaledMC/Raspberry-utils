@@ -9,32 +9,33 @@ from optparse import OptionParser
 length_regexp = b'Duration: (\d{2}):(\d{2}):(\d{2})\.\d+,'
 re_length = re.compile(length_regexp)
 
-def main():
 
+def main():
     (filename, split_length) = parse_options()
     if split_length <= 0:
-        print ("Split length can't be 0")
+        print("Split length can't be 0")
         raise SystemExit
 
-    output = subprocess.Popen("ffmpeg -i '"+filename+"' 2>&1 | grep 'Duration'",
-                            shell = True,
-                            stdout = subprocess.PIPE
-                            ).stdout.read()
-    print (output)
+    output = subprocess.Popen(
+        "ffmpeg -i '"+filename+"' 2>&1 | grep 'Duration'",
+        shell=True,
+        stdout=subprocess.PIPE
+        ).stdout.read()
+    print(output)
     matches = re_length.search(output)
     if matches:
         video_length = int(matches.group(1)) * 3600 + \
                         int(matches.group(2)) * 60 + \
                         int(matches.group(3))
-        print ("Video length in seconds: {}".format(video_length))
+        print("Video length in seconds: {}".format(video_length))
     else:
-        print ("Can't determine video length.")
+        print("Can't determine video length.")
         raise SystemExit
 
     split_count = math.ceil(video_length/float(split_length))
     print(split_count)
     if(split_count == 1):
-        print ("Video length is less then the target split length.")
+        print("Video length is less then the target split length.")
         raise SystemExit
 
     split_cmd = "ffmpeg -i '"+filename+"' -vcodec copy "
@@ -46,31 +47,35 @@ def main():
             split_start = split_length * n
 
         split_str += " -ss "+str(split_start)+" -t "+str(split_length) + \
-                    " '"+filename[:-4] + "---" + str(n) + "." + filename[-3:] + \
-                    "'"
-        print ("About to run: {}{}".format(split_cmd, split_str))
-        output = subprocess.Popen(split_cmd+split_str, shell = True, stdout =
-                               subprocess.PIPE).stdout.read()
+                     " '"+filename[:-4] + "---" + str(n) + "." + filename[-3:] + \
+                     "'"
+        print("About to run: {}{}".format(split_cmd, split_str))
+        output = subprocess.Popen(
+            split_cmd+split_str,
+            shell=True,
+            stdout=subprocess.PIPE).stdout.read()
 
 
 def parse_options():
     parser = OptionParser()
 
-    parser.add_option("-f", "--file",
-                        dest = "filename",
-                        help = "file to split, for example sample.avi",
-                        type = str,
-                        action = "store"
-                        )
-    parser.add_option("-s", "--split-size",
-                        dest = "split_size",
-                        help = "split or chunk size in seconds, for example 10",
-                        type = int,
-                        action = "store"
-                        )
+    parser.add_option(
+        "-f", "--file",
+        dest="filename",
+        help="file to split, for example sample.avi",
+        type=str,
+        action="store"
+        )
+    parser.add_option(
+        "-s", "--split-size",
+        dest="split_size",
+        help="split or chunk size in seconds, for example 10",
+        type=int,
+        action="store"
+    )
     (options, args) = parser.parse_args()
     return (options.filename, options.split_size)
 
 
 if __name__ == '__main__':
-        main()
+    main()

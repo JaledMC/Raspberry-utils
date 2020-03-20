@@ -1,9 +1,5 @@
-#!/usr/bin/python
-
 # MIT License
-
 # Copyright (c) 2017 John Bryan Moore
-
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -22,6 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+"""
+
+"""
+
 import time
 import VL53L0X
 from collections import deque
@@ -31,13 +31,13 @@ def average(lst):
     return sum(lst)/len(lst)
 
 
-def init_tof():
-    tof = VL53L0X.VL53L0X(i2c_bus=1, i2c_address=0x29)
+def init_tof(bus=1, address=0x29, min_time):
+    tof = VL53L0X.VL53L0X(i2c_bus=bus, i2c_address=address)
     tof.open()
     tof.start_ranging(VL53L0X.Vl53l0xAccuracyMode.BETTER)
     timing = tof.get_timing()
-    if timing < 20000:
-        return tof, 20000
+    if timing < min_time:
+        return tof, min_time
     else:
         return tof, timing
 
