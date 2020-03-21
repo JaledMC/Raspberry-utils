@@ -2,7 +2,6 @@ import argparse
 import cv2
 
 
-
 def parser():
     # process input options
     parser = argparse.ArgumentParser()
@@ -23,16 +22,9 @@ def parser():
 
 args = parser()
 img = cv2.imread(args.path, cv2.IMREAD_UNCHANGED)
-
-print('Original Dimensions : ',img.shape)
-
+print('Original Dimensions : ', img.shape)
 width = int(img.shape[1] * args.scale_percent / 100)
 height = int(img.shape[0] * args.scale_percent / 100)
-dim = (width, height)
-
-# resize image
-resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-
-print('Resized Dimensions : ',resized.shape)
-
-cv2.imwrite('resized.jpg',resized)
+resized = cv2.resize(img, (width, height), interpolation=cv2.INTER_AREA)
+print('Resized Dimensions : ', resized.shape)
+cv2.imwrite('resized.jpg', resized)

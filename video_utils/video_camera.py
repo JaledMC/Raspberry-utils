@@ -11,6 +11,9 @@
 # display_width and display_height determine the size of the window on the
 # screen
 
+"""
+    Script to run PiCamera on Jetson Nano, by JetsonHacks
+"""
 
 import cv2
 

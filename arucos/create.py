@@ -5,6 +5,7 @@ import cv2.aruco as aruco
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
+
 def parser():
     # process input options
     parser = argparse.ArgumentParser()
@@ -44,14 +45,14 @@ if (args.format == 'jpg'):
     for i in range(args.quantity):
         img = aruco.drawMarker(aruco_dict, args.id + i, 700)
         cv2.imwrite("aruco_id{}.jpg".format(args.id + i), img)
-        cv2.imshow('frame',img)
+        cv2.imshow('frame', img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 else:
-    for i in range(args.quantity):             #IDDDDDDD
+    for i in range(args.quantity):  # ID
         fig = plt.figure()
         img = aruco.drawMarker(aruco_dict, args.id + i, 700)
-        plt.imshow(img, cmap = mpl.cm.gray, interpolation = "nearest")
+        plt.imshow(img, cmap=mpl.cm.gray, interpolation="nearest")
         plt.axis("off")
         plt.savefig("aruco_id{}.pdf".format(args.id + i))
         plt.show()

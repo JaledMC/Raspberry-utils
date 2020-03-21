@@ -5,7 +5,7 @@ text file containing youtube links (one link per line).
 
 from __future__ import unicode_literals
 import argparse
-import  copy
+import copy
 import youtube_dl
 
 
