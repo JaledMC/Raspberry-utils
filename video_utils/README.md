@@ -10,9 +10,9 @@
 Use this script to crop a video in equal length videos
 
 ```bash
-python crop_video --file <VideoFile> --split_size <Seconds>
+python crop_video --file <VideoFile> --split-size <Seconds>
 # e.g. Crop video1.mp4 in 1 minute videos
-python crop_video --file video1.mp4 --split_size 60
+python crop_video --file video1.mp4 --split-size 60
 ```
 
 ### `download_videos_youtube.py`:
