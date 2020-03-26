@@ -37,5 +37,6 @@ https://www.youtube.com/watch?v=FX20kcp7j5c
 
 Different utils achievable using `FFMPEG`. Implemented:
 
+* Extract frames from video
 * Reduce video size
 

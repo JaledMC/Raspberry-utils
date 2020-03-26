@@ -1,6 +1,19 @@
 # FFMPEG
 
-FFMPEG commands to achieve a bunch of different things.
+`FFMPEG` commands to achieve a bunch of different things.
+
+## EXTRACT FRAMES FROM VIDEO
+
+Extract frames from video. If you want to extract less frames, just put a bigger `-r` number in the first `-r`
+
+```bash
+# Extract all frames from video
+ffmpeg -r 1 -i <input_video> -r 1 "$filename%03d.png
+# Exctract a frame per second aprox (depends on video bitrate, try to adjust the first -r number to adjust it to your needs). The bigger the -r, the less frames extracted
+ffmpeg -r 20 -i <input_video> -r 1 "$filename%03d.png
+```
+
+
 
 ## REDUCE VIDEO SIZE
 
