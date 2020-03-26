@@ -33,5 +33,9 @@ https://www.youtube.com/watch?v=020g-0hhCAU
 https://www.youtube.com/watch?v=FX20kcp7j5c
 ```
 
+### `FFMPEG.md`:
 
+Different utils achievable using `FFMPEG`. Implemented:
+
+* Reduce video size
 
