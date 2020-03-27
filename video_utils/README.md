@@ -5,7 +5,7 @@
 
 ## USAGE
 
-### [crop_video.py]():
+### [crop_video.py](https://github.com/JaledMC/utils/blob/master/video_utils/crop_video.py):
 
 Use this script to crop a video in equal length videos
 
@@ -15,7 +15,7 @@ python crop_video --file <VideoFile> --split-size <Seconds>
 python crop_video --file video1.mp4 --split-size 60
 ```
 
-### [download_videos_youtube.py]():
+### [download_videos_youtube.py](https://github.com/JaledMC/utils/blob/master/video_utils/download_videos_youtube.py):
 
 Use this script to download a list of videos from youtube.
 
@@ -33,7 +33,7 @@ https://www.youtube.com/watch?v=020g-0hhCAU
 https://www.youtube.com/watch?v=FX20kcp7j5c
 ```
 
-### [FFMPEG.md]():
+### [FFMPEG.md](https://github.com/JaledMC/utils/blob/master/video_utils/FFMPEG.md):
 
 Different utils achievable using `FFMPEG`. Implemented:
 
