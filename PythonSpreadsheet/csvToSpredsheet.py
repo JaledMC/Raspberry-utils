@@ -1,6 +1,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
+
 
 """
 Script para subir con Python valores a una hoja de Google Spreadsheets
