@@ -41,7 +41,7 @@ def image2txt(name, voc_annotations):
 def main():
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
     train = open("train.txt", "w")
-    dataset = loadmat('LabelTrainAll.mat')['label_train'][0][:30]
+    dataset = loadmat('LabelTrainAll.mat')['label_train'][0]
     for annotations in dataset:
         image_name = annotations[1][0]
         voc_annotations = annotation2voc(image_name, annotations[2])
