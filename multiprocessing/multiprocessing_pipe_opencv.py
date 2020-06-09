@@ -1,4 +1,4 @@
-import cv2 #importamos opencv
+import cv2
 from timeit import timeit
 from multiprocessing import Process, Pipe, Lock
 import time
@@ -14,7 +14,7 @@ def caputarar_video(conn1_child,conn2_parent,l):
     """
     l.acquire()
     try:
-        cap = cv2.VideoCapture(0) #instnca un objeto de video (0 seleciona cam principal, se pude ponere IP, ruta,... )
+        cap = cv2.VideoCapture(0) 
         while(True): 
             ret, frame = cap.read() 
             #envio el video frame a frame y ret 
@@ -72,10 +72,9 @@ if __name__ == '__main__':
     parent_lock= Lock()
 
     #creo los procesos hijos y los incio
-    p1 = Process(target=caputarar_video, args=(child1_conn1, child1_conn2, child1_lock)) #instancio el proceso hijo
+    p1 = Process(target=caputarar_video, args=(child1_conn1, child1_conn2, child1_lock)) 
+    p2 = Process(target=pintar_imagen, args=(child2_conn1, child2_conn3, child2_lock)) 
     p1.start() 
-
-    p2 = Process(target=pintar_imagen, args=(child2_conn1, child2_conn3, child2_lock)) #instancio el proceso hijo
     p2.start() 
     
   
