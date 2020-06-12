@@ -11,10 +11,11 @@ def autenticacion():
     return gc
 
 
-def get_sheets(gc, name):
+def get_sheets(name):
+    gc = autenticacion()
     try:
         sh = gc.open(name)
-    except Exception:
+    except ValueError:
         print('Creando archivo ' + name)
         sh = gc.create(name)
     return sh
@@ -23,13 +24,13 @@ def get_sheets(gc, name):
 def get_worksheet(sh, name):
     try:
         wks = sh.worksheet(name)
-    except Exception:
+    except ValueError:
         print('Creando pestaña ' + name)
         wks = sh.add_worksheet(title=name, rows="1000", cols="28")
     return wks
 
 
-def get_num_worksheet(sh, num): 
+def get_num_worksheet(sh, num):
     try:
         wks = sh.get_worksheet(num)
     except Exception as error:
@@ -45,9 +46,11 @@ def aleatorio():
 
 
 if __name__ == "__main__":
-    gc = autenticacion()
-    sh = get_sheets(gc, str(datetime.now().strftime("%m_%Y")))
-    wks = get_worksheet(sh, str(datetime.now().strftime("%d")))
+
+    fecha = '13/05/2020'
+    fecha_dt = datetime.strptime(fecha, '%d/%m/%Y')
+    sh = get_sheets(str(fecha_dt.strftime("%m_%Y")))
+    wks = get_worksheet(sh, str(fecha_dt.strftime("%d")))
     sh.share('n.moustafa@sialitech.com', perm_type='user', role='writer')
     for a in aleatorio():
         wks.append_row([a])
