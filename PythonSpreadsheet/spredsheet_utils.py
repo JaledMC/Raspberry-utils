@@ -46,8 +46,8 @@ def aleatorio():
 
 if __name__ == "__main__":
     gc = autenticacion()
-    sh = get_sheets(gc, str(datetime.now().strftime("%d/%m/%Y")))
-    wks = get_num_worksheet(sh, 0)
+    sh = get_sheets(gc, str(datetime.now().strftime("%m_%Y")))
+    wks = get_worksheet(sh, str(datetime.now().strftime("%d")))
     sh.share('n.moustafa@sialitech.com', perm_type='user', role='writer')
     for a in aleatorio():
         wks.append_row([a])
