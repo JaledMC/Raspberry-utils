@@ -29,6 +29,14 @@ def get_worksheet(sh, name):
     return wks
 
 
+def get_num_worksheet(sh, num): 
+    try:
+        wks = sh.get_worksheet(num)
+    except Exception as error:
+        print(error)
+    return wks
+
+
 def aleatorio():
     numeros = []
     for i in range(10):
@@ -38,8 +46,8 @@ def aleatorio():
 
 if __name__ == "__main__":
     gc = autenticacion()
-    sh = get_sheets(gc, 'test')
-    wks = get_worksheet(sh, str(datetime.now().strftime("%d/%m/%Y")))
+    sh = get_sheets(gc, str(datetime.now().strftime("%d/%m/%Y")))
+    wks = get_num_worksheet(sh, 0)
     sh.share('n.moustafa@sialitech.com', perm_type='user', role='writer')
     for a in aleatorio():
         wks.append_row([a])
