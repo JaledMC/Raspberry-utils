@@ -15,7 +15,7 @@ def get_sheets(name):
     gc = autenticacion()
     try:
         sh = gc.open(name)
-    except ValueError:
+    except gspread.exceptions.SpreadsheetNotFound:
         print('Creando archivo ' + name)
         sh = gc.create(name)
     return sh
@@ -47,7 +47,7 @@ def aleatorio():
 
 if __name__ == "__main__":
 
-    fecha = '13/05/2020'
+    fecha = '01/06/2020'
     fecha_dt = datetime.strptime(fecha, '%d/%m/%Y')
     sh = get_sheets(str(fecha_dt.strftime("%m_%Y")))
     wks = get_worksheet(sh, str(fecha_dt.strftime("%d")))
