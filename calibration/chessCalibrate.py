@@ -69,6 +69,8 @@ def undistort(src, mtx, dist):
         key = cv2.waitKey(1)
         if key == 27:  # Esc key to exit
             break
+    src.release()
+    cv2.destroyAllWindows()
 
 
 def main():
